@@ -99,8 +99,6 @@ class Branch {
     double length = (Math.random() * 8) + 4;
     angle += PI / 180 * ((Math.random() * 30) -15);
 
-    println(PI / 180);
-      
     PVector newPosition = position.get();
     newPosition.x += length * Math.cos(angle);
     newPosition.y += length * Math.sin(angle);
