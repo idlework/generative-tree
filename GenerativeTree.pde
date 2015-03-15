@@ -40,34 +40,35 @@ class Tree {
   }
 
   void draw() {
-    Branch branch;
-    boolean divaricate;
-
     for (int i = 0; i < branches.size(); i++) {
-      branch = branches.get(i);
-      branch.draw();
-      divaricate = Math.round(Math.random() * (branch.thickness / 2)) == 1;
-
-      if (divaricate) {
-        double angle = branch.angle + ((Math.random() - .5) * 2);
-        float thickness = random(1, branch.thickness);
-        createBranch(branch.position, angle, thickness);
-      }
-
-      if (branch.thickness < 7) {
-        Leaf leaf = new Leaf(branch.position.get());
-        leaf.draw();
-      }
-
-      if (branch.ended) {
-        branches.remove(branch);
-      }
+      updateBranch(branches.get(i));
     }
   }
 
   void createBranch(PVector position, double angle, float thickness) {
     Branch branch = new Branch(position, angle, thickness);
     branches.add(branch);
+  }
+
+  void updateBranch(Branch branch) {
+    branch.draw();
+
+    boolean divaricate = Math.round(Math.random() * (branch.thickness / 2)) == 1;
+
+    if (divaricate) {
+      double angle = branch.angle + ((Math.random() - .5) * 2);
+      float thickness = random(1, branch.thickness);
+      createBranch(branch.position, angle, thickness);
+    }
+
+    if (branch.thickness < 7) {
+      Leaf leaf = new Leaf(branch.position.get());
+      leaf.draw();
+    }
+
+    if (branch.ended) {
+      branches.remove(branch);
+    }
   }
 }
 
@@ -96,7 +97,9 @@ class Branch {
     strokeWeight(thickness);
 
     double length = (Math.random() * 8) + 4;
-    angle += Math.PI / 180 * ((Math.random() * 30) -15);
+    angle += PI / 180 * ((Math.random() * 30) -15);
+
+    println(PI / 180);
       
     PVector newPosition = position.get();
     newPosition.x += length * Math.cos(angle);
@@ -111,7 +114,7 @@ class Branch {
 }
 
 class Leaf {
-  int[] colors = {#cc0000, #c00000, #cf0000, #d50000, #da0000, #da0000};
+  int[] colors = {#CC0000, #C00000, #CF0000, #D50000, #DA0000, #DA0000};
 
   PVector position;
 
